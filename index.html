@@ -28,107 +28,29 @@
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Где дешевле</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-  :root {
-    --bg:     var(--tg-theme-bg-color, #ffffff);
-    --bg2:    var(--tg-theme-secondary-bg-color, #f1f3f5);
-    --text:   var(--tg-theme-text-color, #111111);
-    --hint:   var(--tg-theme-hint-color, #6b7280);
-    --accent: var(--tg-theme-button-color, #2f80ed);
-    --accent-text: var(--tg-theme-button-text-color, #ffffff);
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
-    background: var(--bg);
-    color: var(--text);
-    font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  h1 { margin: 4px 0 2px; font-size: 24px; }
-  .sub { margin: 0 0 20px; color: var(--hint); }
-  .menu { display: grid; gap: 8px; }
-  .item {
-    display: flex; align-items: center; gap: 12px;
-    width: 100%; padding: 14px;
-    border: 0; border-radius: 12px;
-    background: var(--bg2); color: var(--text);
-    font: inherit; text-align: left; cursor: pointer;
-  }
-  .item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .item .icon { font-size: 22px; }
-  .item small { display: block; color: var(--hint); }
-  .panel { margin-top: 16px; padding: 14px; border-radius: 12px; background: var(--bg2); min-height: 72px; }
-  .panel:empty { display: none; }
-</style>
-</head>
-<body>
-  <h1>Где дешевле</h1>
-  <p class="sub" id="hello">Это заглушка Stage 1. Полный интерфейс (магазины, товары, корзина) появится в Stage 2.</p>
+<!DOCTYPE html>  
+<html>  
+<head>  
+<style>  
+.history-btn {  
+  position: absolute;  
+  top: 10px;  
+  left: 10px;  
+  padding: 10px 20px;  
+}  
+.cart-btn {  
+  position: absolute;  
+  bottom: 20px;  
+  left: 50%;  
+  transform: translateX(-50%);  
+  padding: 10px 20px;  
+}  
+</style>  
+</head>  
+<body>  
+<button class="history-btn">История</button>  
+<button class="cart-btn">Корзина</button>  
+</body>  
+</html>  
 
-  <div class="menu">
-    <button class="item" data-section="search">
-      <span class="icon">🔎</span><span>Поиск<small>Найти, где дешевле</small></span>
-    </button>
-    <button class="item" data-section="favorites">
-      <span class="icon">⭐</span><span>Избранное<small>Сохранённые позиции</small></span>
-    </button>
-    <button class="item" data-section="profile">
-      <span class="icon">👤</span><span>Профиль<small>Данные вашего аккаунта</small></span>
-    </button>
-  </div>
-
-  <div class="panel" id="panel" aria-live="polite"></div>
-
-<script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-  tg.expand();
-
-  const user = tg.initDataUnsafe?.user;
-  if (user) {
-    document.getElementById('hello').textContent = 'Привет, ' + user.first_name + '!';
-  }
-
-  const panel = document.getElementById('panel');
-  const show = (html) => { panel.textContent = ''; panel.insertAdjacentHTML('beforeend', html); };
-
-  const sections = {
-    search:    () => show('Здесь будет поиск (Stage 2+).'),
-    favorites: () => show('Избранное пока пусто.'),
-    profile:   async () => {
-      show('Загружаю…');
-      try {
-        const res = await fetch('/api/me', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ initData: tg.initData }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Ошибка');
-        const u = data.user;
-        const esc = (s) => String(s ?? '—').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-        show('ID: ' + esc(u.id) + '<br>Имя: ' + esc(u.first_name) + '<br>Username: ' + esc(u.username ? '@' + u.username : null));
-      } catch (e) {
-        show('Не удалось проверить данные. Откройте приложение из чата с ботом.');
-      }
-    },
-  };
-
-  document.querySelectorAll('.item').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      tg.HapticFeedback?.selectionChanged();
-      sections[btn.dataset.section]();
-    });
-  });
-</script>
-</body>
-</html>
 
