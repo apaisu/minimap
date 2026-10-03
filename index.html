@@ -1,67 +1,69 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Магазин</title>
     <style>
-        /* Для кнопок */
-        .btn-cart, .btn-history {
-            padding: 10px 20px;
-            font-size: 16px; /* Другой шрифт — чуть крупнее по умолчанию */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            /* Чтобы убрать стандартное синее выделение при фокусе */
-            outline: none;
-        }
-        .btn-cart {
-            background-color: #4CAF50; /* Зелёный фон (не кислотный) */
-            color: white; /* Белый текст */
-            margin: 10px 0; /* Отступ сверху снизу */
-        }
-        .btn-cart:focus {
-            outline: none; /* Снимаем синее свечение */
-        }
-        .btn-history {
-            background-color: #4CAF50;
-            color: white;
-            margin-left: 10px; /* Слева сверху */
-        }
-        .btn-history:focus {
-            outline: none;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-        /* Позиционирование через CSS */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Центруем контент вертикально */
-        }
+      .top-left-area {
+        padding: 20px;
+      }
 
-        .bottom-center {
-            display: flex;
-            justify-content: center; /* Середина горизонтали (корзина внизу) */
-            margin-bottom: 20px;
-        }
+      .bottom-center-area {
+        margin-top: auto;
+        text-align: center;
+        padding-bottom: 30px;
+      }
 
-        .top-left {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
+      .custom-btn {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+
+        background-color: #2e8b57;
+        color: white;
+
+        border: none;
+        padding: 14px 28px;
+        border-radius: 8px;
+
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+      }
+
+      .custom-btn:hover {
+        background-color: #228b22;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
 
-    <!-- Кнопка «Корзина» -->
-    <div class="container bottom-center">
-        <button class="btn-cart cart-btn" onclick="window.location.href='basket.html'">Корзина</button>
+    <!-- Слева сверху -->
+    <div class="top-left-area">
+      <a href="history.html" class="custom-btn">История</a>
     </div>
 
-    <!-- Кнопка «История» -->
-    <div class="container top-left">
-        <button class="btn-history history-btn" onclick="window.location.href='history.html'">История</button>
+    <main style="flex: 1; padding: 20px;">
+      <h1>Главная страница</h1>
+      <p>Здесь будет контент магазина.</p>
+    </main>
+
+    <!-- По центру снизу -->
+    <div class="bottom-center-area">
+      <a href="cart.html" class="custom-btn">Корзина</a>
     </div>
 
-</body>
+  </body>
 </html>
