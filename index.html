@@ -34,108 +34,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Кнопки: Корзина и История</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* Верхняя панель с кнопкой «История» */
-      header {
-        padding: 15px 20px;
-        background-color: #f5f5f5;
-      }
-
-      .history-btn {
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-      }
-
-      .history-btn:hover {
-        background-color: #0056b3;
-      }
-
-      /* Основная область страницы (чтобы кнопка «Корзина» была внизу) */
-      main {
-        flex: 1; /* Занимает всё свободное место, выталкивая футер вниз */
-        padding: 20px;
-      }
-
-      /* Нижняя панель с кнопкой «Корзина» по центру */
-      footer {
-        text-align: center;
-        padding: 20px 0;
-        background-color: #fafafa;
-        border-top: 1px solid #e0e0e0;
-      }
-
-      .cart-btn {
-        padding: 12px 32px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      .cart-btn:hover {
-        background-color: #218838;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Кнопка «История» — слева сверху -->
-    <header>
-      <button class="history-btn" onclick="alert('Нажата кнопка История')">История</button>
-    </header>
-
-    <!-- Основное содержимое страницы -->
-    <main>
-      <h1>Пример страницы</h1>
-      <p>Здесь может быть любой контент сайта.</p>
-    </main>
-
-    <!-- Кнопка «Корзина» — по центру снизу -->
-    <footer>
-      <button class="cart-btn" onclick="alert('Нажата кнопка Корзина')">Корзина</button>
-    </footer>
-  </body>
-</html>
-Этот код создаёт простую страницу: кнопка «История» находится в шапке слева сверху, а «Корзина» — по центру в нижней части экрана. При нажатии на кнопки появляются всплывающие сообщения. Если скажешь, какой функционал хочешь добавить к кнопкам (например, переход на другую страницу или открытие модального окна), подскажу, как это реализовать. 😊
-
-Я
-напиши чтобы эти 2 кнопки были другим шрифтом и чтобы они были зеленого(не кислотного) цвета и напиши чтобы после нажатия этих кнопок я переходил во внутрь
-Алиса
-html
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Кнопки: Корзина и История</title>
-    <!-- Подключаем шрифт Inter для приятного некислотного вида -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
     <style>
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Inter', sans-serif; /* единый шрифт для всей страницы */
+        font-family: 'Inter', sans-serif;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      /* Верхняя панель с кнопкой «История» */
       header {
         padding: 15px 20px;
         background-color: #f8f9fa;
@@ -143,14 +52,13 @@ html
 
       .history-btn {
         padding: 10px 18px;
-        /* спокойный зелёный, не кислотный */
         background-color: #2e8b57;
         color: white;
-        border: none;
+        text-decoration: none;
         border-radius: 6px;
         cursor: pointer;
         font-size: 15px;
-        font-weight: 600; /* чуть жирнее для выразительности */
+        font-weight: 600;
         transition: background-color 0.2s ease;
       }
 
@@ -158,13 +66,11 @@ html
         background-color: #226b40;
       }
 
-      /* Основная область страницы (чтобы кнопка «Корзина» была внизу) */
       main {
-        flex: 1; /* выталкивает футер вниз */
+        flex: 1;
         padding: 20px;
       }
 
-      /* Нижняя панель с кнопкой «Корзина» по центру */
       footer {
         text-align: center;
         padding: 25px 0;
@@ -174,10 +80,9 @@ html
 
       .cart-btn {
         padding: 14px 36px;
-        /* тот же спокойный зелёный */
         background-color: #2e8b57;
         color: white;
-        border: none;
+        text-decoration: none;
         border-radius: 8px;
         font-size: 16px;
         font-weight: 600;
@@ -195,22 +100,17 @@ html
     </style>
   </head>
   <body>
-    <!-- Кнопка «История» — слева сверху -->
     <header>
-      <!-- ссылка вместо onclick, чтобы реально переходить «внутрь» -->
-      <a href="/history" class="history-btn">История</a>
+      <a href="/history.html" class="history-btn">История</a>
     </header>
 
-    <!-- Основное содержимое страницы -->
     <main>
       <h1>Пример страницы</h1>
       <p>Здесь может быть любой контент сайта.</p>
     </main>
 
-    <!-- Кнопка «Корзина» — по центру снизу -->
     <footer>
-      <!-- ссылка для перехода внутрь корзины -->
-      <a href="/cart" class="cart-btn">Корзина</a>
+      <a href="/cart.html" class="cart-btn">Корзина</a>
     </footer>
   </body>
 </html>
