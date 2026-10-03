@@ -1,114 +1,67 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Привет</title>ы
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
-      font-size: 32px;
-      background: var(--tg-theme-bg-color, #fff);
-      color: var(--tg-theme-text-color, #000);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Для кнопок */
+        .btn-cart, .btn-history {
+            padding: 10px 20px;
+            font-size: 16px; /* Другой шрифт — чуть крупнее по умолчанию */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            /* Чтобы убрать стандартное синее выделение при фокусе */
+            outline: none;
+        }
+        .btn-cart {
+            background-color: #4CAF50; /* Зелёный фон (не кислотный) */
+            color: white; /* Белый текст */
+            margin: 10px 0; /* Отступ сверху снизу */
+        }
+        .btn-cart:focus {
+            outline: none; /* Снимаем синее свечение */
+        }
+        .btn-history {
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 10px; /* Слева сверху */
+        }
+        .btn-history:focus {
+            outline: none;
+        }
+
+        /* Позиционирование через CSS */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Центруем контент вертикально */
+        }
+
+        .bottom-center {
+            display: flex;
+            justify-content: center; /* Середина горизонтали (корзина внизу) */
+            margin-bottom: 20px;
+        }
+
+        .top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
 </head>
 <body>
-  привет
-  <script>
-    Telegram.WebApp.ready();
-    Telegram.WebApp.expand();
-  </script>
+
+    <!-- Кнопка «Корзина» -->
+    <div class="container bottom-center">
+        <button class="btn-cart cart-btn" onclick="window.location.href='basket.html'">Корзина</button>
+    </div>
+
+    <!-- Кнопка «История» -->
+    <div class="container top-left">
+        <button class="btn-history history-btn" onclick="window.location.href='history.html'">История</button>
+    </div>
+
 </body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Кнопки: Корзина и История</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      header {
-        padding: 15px 20px;
-        background-color: #f8f9fa;
-        /* Важно: явно задаём выравнивание по левому краю */
-        text-align: left;
-      }
-
-      .history-btn {
-        padding: 10px 18px;
-        background-color: #2e8b57;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: 600;
-        transition: background-color 0.2s ease;
-      }
-
-      .history-btn:hover {
-        background-color: #226b40;
-      }
-
-      main {
-        flex: 1;
-        padding: 20px;
-      }
-
-      footer {
-        text-align: center;
-        padding: 25px 0;
-        background-color: #fafafa;
-        border-top: 1px solid #e5e5e5;
-      }
-
-      .cart-btn {
-        padding: 14px 36px;
-        background-color: #2e8b57;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.1s ease, background-color 0.2s ease;
-      }
-
-      .cart-btn:hover {
-        background-color: #226b40;
-      }
-
-      .cart-btn:active {
-        transform: scale(0.98);
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <a href="/history.html" class="history-btn">История</a>
-    </header>
-    
-    <footer>
-      <a href="/cart.html" class="cart-btn">Корзина</a>
-    </footer>
-  </body>
 </html>
