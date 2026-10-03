@@ -1,69 +1,79 @@
+
 <!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Магазин</title>
+    <title>Кнопки: Корзина и История</title>
     <style>
       body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
       }
 
-      .top-left-area {
+      /* Верхняя панель с кнопкой «История» */
+      header {
+        padding: 15px 20px;
+        background-color: #f5f5f5;
+      }
+
+      .history-btn {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .history-btn:hover {
+        background-color: #0056b3;
+      }
+
+      /* Основная область страницы (чтобы кнопка «Корзина» была внизу) */
+      main {
+        flex: 1; /* Занимает всё свободное место, выталкивая футер вниз */
         padding: 20px;
       }
 
-      .bottom-center-area {
-        margin-top: auto;
+      /* Нижняя панель с кнопкой «Корзина» по центру */
+      footer {
         text-align: center;
-        padding-bottom: 30px;
+        padding: 20px 0;
+        background-color: #fafafa;
+        border-top: 1px solid #e0e0e0;
       }
 
-      .custom-btn {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 600;
-
-        background-color: #2e8b57;
+      .cart-btn {
+        padding: 12px 32px;
+        background-color: #28a745;
         color: white;
-
         border: none;
-        padding: 14px 28px;
         border-radius: 8px;
-
+        font-size: 16px;
         cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-
-        -webkit-tap-highlight-color: transparent;
-        outline: none;
       }
 
-      .custom-btn:hover {
-        background-color: #228b22;
+      .cart-btn:hover {
+        background-color: #218838;
       }
     </style>
   </head>
   <body>
+    <!-- Кнопка «История» — слева сверху -->
+    <header>
+      <button class="history-btn" onclick="alert('Нажата кнопка История')">История</button>
+    </header>
 
-    <!-- Слева сверху -->
-    <div class="top-left-area">
-      <a href="history.html" class="custom-btn" target="_blank" rel="noopener noreferrer">История</a>
-    </div>
 
-    <main style="flex: 1; padding: 20px;">
-      <h1>Главная страница</h1>
-      <p>Здесь будет контент магазина.</p>
-    </main>
-
-    <!-- По центру снизу -->
-    <div class="bottom-center-area">
-      <a href="cart.html" class="custom-btn" target="_blank" rel="noopener noreferrer">Корзина</a>
-    </div>
-
+    <!-- Кнопка «Корзина» — по центру снизу -->
+    <footer>
+      <button class="cart-btn" onclick="alert('Нажата кнопка Корзина')">Корзина</button>
+    </footer>
   </body>
 </html>
