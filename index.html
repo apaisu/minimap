@@ -13,18 +13,27 @@
       display: flex;
       flex-direction: column;
     }
-    .top-left-area {
+
+    /* Верхняя строка: растягиваем, чтобы История была слева, Меню — справа */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
     }
+
     .bottom-center-area {
       margin-top: auto;
       text-align: center;
       padding-bottom: 30px;
     }
+
     .custom-btn {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-weight: 600;
-      background-color: #2e8b57;
+      background-color: #2e8b57;       /* спокойный зелёный */
       color: white;
       border: none;
       padding: 14px 28px;
@@ -35,20 +44,24 @@
       -webkit-tap-highlight-color: transparent;
       outline: none;
     }
+
     .custom-btn:hover {
-      background-color: #228b22;
+      background-color: #228b22;      /* чуть темнее при наведении */
     }
   </style>
 </head>
 <body>
-  <!-- Слева сверху -->
-  <div class="top-left-area">
+
+  <!-- Верхняя панель: История слева, Меню справа -->
+  <div class="top-bar">
     <a href="history.html" class="custom-btn">История</a>
+    <a href="menu.html" class="custom-btn">Меню</a>
   </div>
 
-  <!-- По центру снизу -->
+  <!-- Корзина по центру снизу -->
   <div class="bottom-center-area">
     <a href="cart.html" class="custom-btn">Корзина</a>
   </div>
+
 </body>
 </html>
