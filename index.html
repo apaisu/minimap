@@ -1,64 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Магазин</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Магазин</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-left-area {
+      padding: 20px;
+    }
+    .bottom-center-area {
+      margin-top: auto;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+    .custom-btn {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 600;
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .custom-btn:hover {
+      background-color: #228b22;
+    }
+  </style>
+</head>
+<body>
+  <!-- Слева сверху -->
+  <div class="top-left-area">
+    <a href="history.html" class="custom-btn">История</a>
+  </div>
 
-      .top-left-area {
-        padding: 20px;
-      }
-
-      .bottom-center-area {
-        margin-top: auto;
-        text-align: center;
-        padding-bottom: 30px;
-      }
-
-      .custom-btn {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 600;
-
-        background-color: #2e8b57;
-        color: white;
-
-        border: none;
-        padding: 14px 28px;
-        border-radius: 8px;
-
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-
-        -webkit-tap-highlight-color: transparent;
-        outline: none;
-      }
-
-      .custom-btn:hover {
-        background-color: #228b22;
-      }
-    </style>
-  </head>
-  <body>
-
-    <!-- Слева сверху -->
-    <div class="top-left-area">
-      <a href="history.html" class="custom-btn">История</a>
-    </div>
-
-    <!-- По центру снизу -->
-    <div class="bottom-center-area">
-      <a href="cart.html" class="custom-btn">Корзина</a>
-    </div>
-
-  </body>
+  <!-- По центру снизу -->
+  <div class="bottom-center-area">
+    <a href="cart.html" class="custom-btn" target="_blank">Корзина</a>
+  </div>
+</body>
 </html>
