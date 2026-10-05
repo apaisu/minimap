@@ -34,6 +34,14 @@
       display: flex;
     }
 
+    /* ===== Обёртка ленты + ползунок ===== */
+    .slider-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
     /* ===== Лента товаров (свайп) ===== */
     .slider-container {
       flex: 1;
@@ -43,10 +51,10 @@
       scroll-snap-type: x mandatory;
       padding: 8px 0;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox — скрыть полосу */
+      scrollbar-width: none;
     }
     .slider-container::-webkit-scrollbar {
-      display: none; /* Chrome/Safari — скрыть полосу */
+      display: none;
     }
 
     .slider-track {
@@ -83,6 +91,29 @@
     .product-price {
       color: #2e8b57;
       font-weight: 700;
+    }
+
+    /* ===== Полупрозрачный ползунок ===== */
+    .scrollbar-track {
+      position: relative;
+      width: 80%;
+      max-width: 400px;
+      margin: 0 auto 16px auto;
+      height: 6px;
+      background: rgba(46, 139, 87, 0.15);
+      border-radius: 3px;
+    }
+
+    .scrollbar-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px;
+      width: 40px;
+      background: rgba(46, 139, 87, 0.6);
+      border-radius: 3px;
+      transition: left 0.1s ease;
+      pointer-events: none;
     }
 
     /* ===== Контент страниц (корзина, история, меню) ===== */
@@ -185,44 +216,51 @@
       <a href="#" class="custom-btn" onclick="showPage('menu'); return false;">Меню</a>
     </div>
 
-    <!-- Лента со свайпом (без стрелок) -->
-    <div class="slider-container" id="sliderContainer">
-      <div class="slider-track" id="sliderTrack">
-        <div class="product-card">
-          <div class="product-img" style="background:#e0e7ff;"></div>
-          <div class="product-name">Вода</div>
-          <div class="product-price">50 ₽</div>
+    <!-- Лента + ползунок -->
+    <div class="slider-wrapper">
+      <div class="slider-container" id="sliderContainer">
+        <div class="slider-track" id="sliderTrack">
+          <div class="product-card">
+            <div class="product-img" style="background:#e0e7ff;"></div>
+            <div class="product-name">Вода</div>
+            <div class="product-price">50 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#ffe6cc;"></div>
+            <div class="product-name">Кириешки</div>
+            <div class="product-price">85 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#f5e6d3;"></div>
+            <div class="product-name">Хлеб</div>
+            <div class="product-price">45 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#fffbf0;"></div>
+            <div class="product-name">Молоко</div>
+            <div class="product-price">90 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#fdfdfd;"></div>
+            <div class="product-name">Сахар</div>
+            <div class="product-price">65 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#e0f7fa;"></div>
+            <div class="product-name">Чай</div>
+            <div class="product-price">120 ₽</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img" style="background:#fce4ec;"></div>
+            <div class="product-name">Кофе</div>
+            <div class="product-price">250 ₽</div>
+          </div>
         </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#ffe6cc;"></div>
-          <div class="product-name">Кириешки</div>
-          <div class="product-price">85 ₽</div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#f5e6d3;"></div>
-          <div class="product-name">Хлеб</div>
-          <div class="product-price">45 ₽</div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#fffbf0;"></div>
-          <div class="product-name">Молоко</div>
-          <div class="product-price">90 ₽</div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#fdfdfd;"></div>
-          <div class="product-name">Сахар</div>
-          <div class="product-price">65 ₽</div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#e0f7fa;"></div>
-          <div class="product-name">Чай</div>
-          <div class="product-price">120 ₽</div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#fce4ec;"></div>
-          <div class="product-name">Кофе</div>
-          <div class="product-price">250 ₽</div>
-        </div>
+      </div>
+
+      <!-- Полупрозрачный ползунок -->
+      <div class="scrollbar-track">
+        <div class="scrollbar-thumb" id="scrollbarThumb"></div>
       </div>
     </div>
 
@@ -324,25 +362,55 @@
   <script>
     // ===== Переключение между страницами =====
     function showPage(pageName) {
-      // Скрываем все страницы
       const pages = document.querySelectorAll('.page');
       pages.forEach(p => p.classList.remove('active'));
-
-      // Показываем нужную
       const target = document.getElementById('page-' + pageName);
       if (target) {
         target.classList.add('active');
       }
-
-      // Прокручиваем ленту в начало при возврате на главную
       if (pageName === 'home') {
         const container = document.getElementById('sliderContainer');
-        if (container) container.scrollLeft = 0;
+        if (container) {
+          container.scrollLeft = 0;
+          updateScrollbar();
+        }
       }
     }
 
-    // ===== Свайп ленты мышкой (для ПК) =====
+    // ===== Полупрозрачный ползунок =====
     const container = document.getElementById('sliderContainer');
+    const thumb = document.getElementById('scrollbarThumb');
+    const trackEl = thumb.parentElement;
+
+    function updateScrollbar() {
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      if (maxScroll <= 0) {
+        thumb.style.width = '100%';
+        thumb.style.left = '0%';
+        return;
+      }
+
+      // Ширина ползунка — пропорционально видимой части
+      const trackWidth = trackEl.clientWidth;
+      const visibleRatio = container.clientWidth / container.scrollWidth;
+      const thumbWidth = Math.max(30, trackWidth * visibleRatio);
+      const thumbMoveRange = trackWidth - thumbWidth;
+
+      const scrollRatio = container.scrollLeft / maxScroll;
+      const thumbLeft = scrollRatio * thumbMoveRange;
+
+      thumb.style.width = thumbWidth + 'px';
+      thumb.style.left = thumbLeft + 'px';
+    }
+
+    // Обновляем ползунок при скролле
+    container.addEventListener('scroll', updateScrollbar);
+    window.addEventListener('resize', updateScrollbar);
+
+    // Запускаем после загрузки
+    window.addEventListener('load', updateScrollbar);
+
+    // ===== Свайп мышкой (для ПК) =====
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -374,3 +442,4 @@
   </script>
 </body>
 </html>
+
