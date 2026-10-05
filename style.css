@@ -9,3 +9,20 @@ body {
   text-decoration: underline;
 }
 ``
+
+.product-slider {
+  display: flex; /* Включаем flex-контейнер */
+  width: 200px; /* Ширина контейнера (сколько элементов влезет) */
+  overflow-x: auto; /* Включаем горизонтальный скролл */
+  white-space: nowrap; /* Элементы не переносятся, всё в одну строку */
+  scroll-snap-type: x mandatory; /* Ось X, строгое прилипание (немедленно до точки) */
+}
+
+.product {
+  flex: 0 0 100%; /* Каждый продукт занимает 100% ширины */
+  scroll-snap-align: start; /* Прилипает к левому краю контейнера */
+  background-color: #f0f0f0; /* Цвет фона для наглядности */
+  padding: 10px; /* Отступ для красоты */
+  border-radius: 5px;
+  margin: 5px;
+}
