@@ -1,80 +1,56 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; color: #68b1ff; -webkit-text-stroke: #68b1ff; background-color: #1d1d1d}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; color: #ffffff; color: rgba(255, 255, 255, 0.75); -webkit-text-stroke: rgba(255, 255, 255, 0.75); background-color: #1d1d1d}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; color: #6fe674; -webkit-text-stroke: #6fe674; background-color: #1d1d1d}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Courier; color: #96ccff; -webkit-text-stroke: #96ccff; background-color: #1d1d1d}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; color: #fc635f; -webkit-text-stroke: 0px #fc635f}
-    span.s3 {font-kerning: none; color: #6fe674; -webkit-text-stroke: 0px #6fe674}
-    span.s4 {font-kerning: none; color: #68b1ff; -webkit-text-stroke: 0px #68b1ff}
-    span.s5 {font-kerning: none; color: #96ccff; -webkit-text-stroke: 0px #96ccff}
-    span.s6 {font-kerning: none; color: rgba(255, 255, 255, 0.75); -webkit-text-stroke: 0px rgba(255, 255, 255, 0.75)}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Корзина</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .top-left-area {
+      padding: 20px;
+    }
+    .bottom-center-area {
+      margin-top: auto;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+    .custom-btn {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 600;
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .custom-btn:hover {
+      background-color: #228b22;
+    }
+    .content {
+      padding: 20px;
+      flex: 1;
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s1">&lt;</span><span class="s3">html</span><span class="s1"> </span><span class="s4">lang</span><span class="s1">=</span><span class="s5">"ru"</span><span class="s1">&gt;</span></p>
-<p class="p3"><span class="s6">&lt;</span><span class="s1">head</span><span class="s6">&gt;</span></p>
-<p class="p1"><span class="s6"><span class="Apple-converted-space">  </span>&lt;</span><span class="s3">meta</span><span class="s6"> </span><span class="s1">charset</span><span class="s6">=</span><span class="s5">"utf-8"</span><span class="s6">&gt;</span></p>
-<p class="p4"><span class="s6"><span class="Apple-converted-space">  </span>&lt;</span><span class="s3">meta</span><span class="s6"> </span><span class="s4">name</span><span class="s6">=</span><span class="s1">"viewport"</span><span class="s6"> </span><span class="s4">content</span><span class="s6">=</span><span class="s1">"width=device-width, initial-scale=1"</span><span class="s6">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;</span><span class="s3">title</span><span class="s1">&gt;Корзина&lt;/</span><span class="s3">title</span><span class="s1">&gt;</span></p>
-<p class="p3"><span class="s6"><span class="Apple-converted-space">  </span>&lt;</span><span class="s1">style</span><span class="s6">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>font-family: Arial, sans-serif;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>min-height: 100vh;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>flex-direction: column;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>.top-left-area {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>padding: 20px;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>.bottom-center-area {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: auto;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>padding-bottom: 30px;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>.custom-btn {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 600;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>background-color: #2e8b57;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>color: white;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>border: none;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px 28px;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 8px;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>text-decoration: none;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>display: inline-block;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>-webkit-tap-highlight-color: transparent;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>outline: none;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>.custom-btn:hover {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>background-color: #228b22;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>.content {</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>padding: 20px;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">      </span>flex: 1;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/</span><span class="s3">style</span><span class="s1">&gt;</span></p>
-<p class="p3"><span class="s6">&lt;/</span><span class="s1">head</span><span class="s6">&gt;</span></p>
-<p class="p3"><span class="s6">&lt;</span><span class="s1">body</span><span class="s6">&gt;</span></p>
-<p class="p4"><span class="s6"><span class="Apple-converted-space">  </span>&lt;</span><span class="s3">div</span><span class="s6"> </span><span class="s4">class</span><span class="s6">=</span><span class="s1">"top-left-area"</span><span class="s6">&gt;</span></p>
-<p class="p4"><span class="s6"><span class="Apple-converted-space">    </span>&lt;</span><span class="s3">a</span><span class="s6"> </span><span class="s4">href</span><span class="s6">=</span><span class="s1">"index.html"</span><span class="s6"> </span><span class="s4">class</span><span class="s6">=</span><span class="s1">"custom-btn"</span><span class="s6">&gt;Назад&lt;/</span><span class="s3">a</span><span class="s6">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/</span><span class="s3">div</span><span class="s1">&gt;</span></p>
-<p class="p4"><span class="s6"><span class="Apple-converted-space">  </span>&lt;</span><span class="s3">div</span><span class="s6"> </span><span class="s4">class</span><span class="s6">=</span><span class="s1">"content"</span><span class="s6">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s3">h2</span><span class="s1">&gt;Корзина&lt;/</span><span class="s3">h2</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">    </span>&lt;</span><span class="s3">p</span><span class="s1">&gt;Здесь будут товары из корзины.&lt;/</span><span class="s3">p</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/</span><span class="s3">div</span><span class="s1">&gt;</span></p>
-<p class="p3"><span class="s6">&lt;/</span><span class="s1">body</span><span class="s6">&gt;</span></p>
-<p class="p3"><span class="s6">&lt;/</span><span class="s1">html</span><span class="s6">&gt;</span></p>
+  <div class="top-left-area">
+    <a href="index.html" class="custom-btn">Назад</a>
+  </div>
+  <div class="content">
+    <h2>Корзина</h2>
+    <p>Здесь будут товары из корзины.</p>
+  </div>
 </body>
 </html>
