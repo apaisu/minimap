@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>ГдеДешевле</title>
+<meta name="theme-color" content="#254547">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#3b6b6d;--dark:#254547;--cyan:#00bcd0;--lime:#d0ff00;--orange:#ff5c2e;--cream:#f0f9c4;--tile:#c5e0e3;--text:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;font-weight:700}
+#app{max-width:480px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:96px;background:var(--bg)}
+.screen{display:none}.screen.on{display:block}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.hdr{background:var(--dark);display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:5;min-height:64px;padding:8px 16px}
+.hdr h1{margin:0;color:var(--cyan);font-size:28px;text-align:center;font-weight:800}
+.hdr small{display:block;color:var(--cyan);font-size:14px;font-weight:700}
+.back{position:absolute;left:16px;top:12px;width:42px;height:42px;border-radius:50%;background:var(--bg);color:var(--cyan);font-size:22px;font-weight:800}
+.hright{position:absolute;right:16px;top:12px;display:flex;gap:8px}
+.star{width:42px;height:42px;background:none;font-size:34px;color:#e7e7e7;line-height:1}
+.pad{padding:12px 16px}
+h2{font-size:22px;margin:18px 0 10px;font-weight:800}
+.row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.row::-webkit-scrollbar{display:none}
+.pill{background:var(--cream);color:var(--orange);border-radius:14px;padding:11px 14px;text-align:center;font-size:14px;font-weight:800;display:block;width:100%}
+.search{display:flex;align-items:center;gap:10px;background:var(--dark);border-radius:14px;padding:12px 14px;color:#6aa5ad;flex:1}
+.search input{background:none;border:0;outline:0;color:#fff;font:inherit;width:100%}
+.search input::placeholder{color:#6aa5ad}
+.sq{width:48px;height:48px;border-radius:12px;background:var(--dark);display:grid;place-items:center;flex:none}
+.sq i{width:20px;height:20px;background:var(--orange);display:block}
+.card{background:var(--dark);border-radius:16px;padding:8px;min-width:150px;width:150px;flex:none;text-align:left}
+.grid .card{width:auto;min-width:0}
+.img{aspect-ratio:1;border-radius:14px;background:var(--tile);display:grid;place-items:center;font-size:54px;position:relative}
+.img b{position:absolute;top:8px;right:8px;width:14px;height:14px;background:var(--orange)}
+.card .pr{margin:8px 4px 2px;font-size:15px}
+.card .nm{margin:0 4px 6px;font-size:13px;line-height:1.25;min-height:32px}
+.card .rt{margin:0 4px 6px;font-size:12px}
+.btn{background:var(--cyan);color:#fff;border-radius:10px;padding:8px;font-size:13px;font-weight:800;width:100%}
+.btn.big{border-radius:20px;padding:16px;font-size:22px}
+.btn.lime{background:var(--lime);color:#2a4d4f}
+.btn.dark{background:var(--dark);color:var(--cream)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chip{background:var(--dark);border-radius:14px;padding:10px 12px;font-size:12px;text-align:center;flex:none;min-width:64px;color:#fff}
+.chip.lime{background:var(--lime);color:#2a4d4f;font-size:20px;padding:18px 16px;border-radius:16px}
+.sqt{width:80px;height:80px;border-radius:14px;background:var(--dark);flex:none}
+.tile{width:130px;height:130px;border-radius:16px;flex:none;display:grid;place-items:center;font-size:46px}
+.cat{width:88px;text-align:center;font-size:11px;flex:none}
+.cat div{height:88px;border-radius:16px;background:var(--orange);margin-bottom:6px;display:grid;place-items:center;font-size:36px}
+.dk{background:var(--dark);border-radius:16px;padding:14px}
+.nav{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;background:var(--bg);display:flex;justify-content:space-around;padding:12px 8px calc(14px + env(safe-area-inset-bottom));z-index:9;border-top:1px solid #2c5456}
+.nav button{width:46px;height:46px;border-radius:50%;background:var(--cyan);font-size:22px;display:grid;place-items:center}
+.nav button.act{background:var(--orange)}
+.fab{position:fixed;right:max(16px,calc(50% - 224px));bottom:96px;background:var(--cyan);border-radius:18px;padding:10px 26px;font-size:34px;z-index:8}
+.old{text-decoration:line-through;color:var(--orange);font-size:.7em}
+.nutri{display:flex;justify-content:space-between;text-align:center;background:var(--dark);border-radius:14px;padding:14px 18px}
+.nutri b{display:block;font-size:26px}.nutri span{font-size:14px}
+.item{display:flex;gap:12px;align-items:center;background:var(--dark);border-radius:16px;padding:12px;margin-bottom:12px}
+.item .ph{width:62px;height:62px;border-radius:8px;background:#fff;display:grid;place-items:center;font-size:36px;flex:none}
+.item .info{flex:1;font-size:14px;line-height:1.3}
+.qty{display:inline-flex;align-items:center;background:var(--bg);border-radius:14px;padding:3px 10px;gap:12px;margin-top:6px}
+.qty button{background:none;font-size:20px;font-weight:800;color:#fff}
+.del{background:none;font-size:20px}
+.seg{display:flex;gap:10px}
+.seg button{flex:1;background:var(--dark);border-radius:14px;padding:12px 4px;text-align:center;font-size:15px}
+.seg button.on{background:var(--cyan)}
+.tabs{display:flex;justify-content:space-around;background:var(--dark);padding:2px 0 10px}
+.tabs button{background:none;color:var(--cyan);font-size:16px;padding:8px 20px}
+.tabs button.on{color:var(--lime)}
+.map{height:380px;background:#e8efe6;position:relative;overflow:hidden}
+.sheet{background:var(--cyan);border-radius:22px 22px 0 0;margin-top:-26px;position:relative;padding:16px}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 20px;border-radius:14px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+.sl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:18px;line-height:1.2;margin:14px 0}
+.sl s{font-size:14px;color:#c9d6d6;text-decoration:none;display:block;text-align:right}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ГЛАВНАЯ -->
+<section class="screen on" id="home">
+  <div class="pad">
+    <div style="display:flex;gap:12px;align-items:center">
+      <div style="width:60px;height:60px;border-radius:50%;background:var(--cyan);flex:none" id="avatar"></div>
+      <div class="pill" style="text-align:left">📍 <span class="addr">г. Новосибирск, ул. Кирова д.63/2</span></div>
+    </div>
+    <div style="display:flex;margin:14px 0"><label class="search">🔍 <input placeholder="Найти продукт" data-search></label></div>
+    <div style="display:flex;gap:14px">
+      <button class="btn" data-go="history" style="border-radius:16px;padding:18px;font-size:20px">🕓 История</button>
+      <button class="btn" data-go="menu" style="border-radius:16px;padding:18px;font-size:20px">👨‍🍳 Меню</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><h2>Магазины</h2><button data-go="stores" style="background:none;font-size:20px;font-weight:800">Все &gt;</button></div>
+    <div class="row">
+      <button data-go="stores" class="tile" style="background:var(--orange);width:118px;height:118px;align-content:end;font-size:15px;text-align:left;padding:14px">Лента</button>
+      <button data-go="stores" class="tile" style="background:var(--orange);width:118px;height:118px;align-content:end;font-size:15px;padding:14px">Пятерочка</button>
+      <button data-go="stores" class="tile" style="background:var(--orange);width:118px;height:118px;align-content:end;font-size:15px;padding:14px">МарияРа</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><h2>Каталог</h2><button data-go="catalog" style="background:none;font-size:20px;font-weight:800">Все &gt;</button></div>
+    <div class="row" id="homeRow"></div>
+    <div class="row" id="homeRow2" style="margin-top:10px"></div>
+  </div>
+  <button class="fab" data-go="cart">🛒</button>
+</section>
+
+<!-- КАТАЛОГ (категории) -->
+<section class="screen" id="catalog">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Каталог</h1></div>
+  <div class="pad">
+    <h2 style="margin-top:4px">Магазины</h2>
+    <div class="row"><button class="chip lime">Все</button><button class="sqt" data-go="stores"></button><button class="sqt" data-go="stores"></button><button class="sqt" data-go="stores"></button></div>
+    <div class="pill" style="margin:14px 0"><span class="addr">г. Новосибирск, ул. Кирова д.63/2</span></div>
+    <div style="display:flex;gap:10px"><label class="search">🔍 <input placeholder="Найти продукт" data-search></label><button class="sq" data-go="category" data-arg="Фильтры"><i></i></button></div>
+    <div class="row" style="margin-top:14px">
+      <button class="cat" data-go="category" data-arg="Акции и скидки"><div>🏷️</div>Акции и скидки</button>
+      <button class="cat" data-go="category" data-arg="Новинки"><div>✨</div>Новинки</button>
+      <button class="cat" data-go="stores"><div>🏬</div>Магазины</button>
+      <button class="cat" data-go="category" data-arg="Избранное"><div>⭐</div>Избранное</button>
+    </div>
+    <h2>Уже покупали</h2>
+    <div class="row"><button class="tile" style="background:var(--cyan)" data-go="product" data-arg="1">🥛</button><button class="tile" style="background:var(--cyan)" data-go="product" data-arg="3">🍞</button><button class="tile" style="background:var(--cyan)" data-go="product" data-arg="2">🥩</button></div>
+    <h2>Хлеб и выпечка</h2>
+    <div class="row"><button class="tile" style="background:var(--cream)" data-go="category" data-arg="Хлеб и выпечка">🍞</button><button class="tile" style="background:var(--cream)" data-go="category" data-arg="Хлеб и выпечка">🥐</button><button class="tile" style="background:var(--cream)" data-go="category" data-arg="Хлеб и выпечка">🥖</button></div>
+    <h2>Молочные продукты, яйца</h2>
+    <div class="row"><button class="tile" style="background:var(--cyan)" data-go="category" data-arg="Молочные продукты, яйца">🥛</button><button class="tile" style="background:var(--cyan)" data-go="category" data-arg="Молочные продукты, яйца">🧀</button><button class="tile" style="background:var(--cyan)" data-go="category" data-arg="Молочные продукты, яйца">🥚</button></div>
+    <h2>Овощи, фрукты, орехи</h2>
+    <div class="row"><button class="tile" style="background:var(--lime)" data-go="category" data-arg="Овощи, фрукты, орехи">🍅</button><button class="tile" style="background:var(--lime)" data-go="category" data-arg="Овощи, фрукты, орехи">🍎</button><button class="tile" style="background:var(--lime)" data-go="category" data-arg="Овощи, фрукты, орехи">🌰</button></div>
+  </div>
+</section>
+
+<!-- СПИСОК ТОВАРОВ КАТЕГОРИИ -->
+<section class="screen" id="category">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Каталог</h1></div>
+  <div class="pad">
+    <h2 id="catTitle" style="margin-top:6px">Название категории</h2>
+    <div class="row"><span class="chip" style="min-width:90px;padding:14px"></span><span class="chip" style="min-width:90px;padding:14px"></span><span class="chip" style="min-width:90px;padding:14px"></span><span class="chip" style="min-width:90px;padding:14px"></span></div>
+    <div style="display:flex;justify-content:space-between;margin:14px 0;font-size:15px"><span>• По популярности</span><span>☰ Фильтры</span></div>
+    <div class="grid" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- ТОВАР -->
+<section class="screen" id="product">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Название</h1><div class="hright"><button class="star" data-fav>☆</button><span style="width:34px;height:34px;border-radius:50%;background:#e7e7e7;margin-top:4px"></span></div></div>
+  <div id="prodImg" style="background:#fff;height:240px;display:grid;place-items:center;font-size:150px"></div>
+  <div class="pad">
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="dk" style="padding:10px 14px"><div id="prodPrice" style="color:var(--lime);font-size:24px"></div><div id="prodOld" class="old" style="font-size:18px"></div></div>
+      <div style="flex:1;background:#fff;border-radius:14px;height:76px;padding:6px">
+        <svg viewBox="0 0 200 60" width="100%" height="100%"><polyline fill="none" stroke="#00a5d8" stroke-width="3" points="5,52 30,38 50,46 75,28 95,36 120,18 145,26 170,12 195,8"/></svg>
+      </div>
+    </div>
+    <div class="dk" id="prodName" style="margin-top:12px;font-size:21px;text-align:center"></div>
+    <button class="btn big" style="margin-top:12px" id="prodAdd">В корзину</button>
+    <div class="nutri" style="margin-top:12px"><div><b>10</b><span>белков</span></div><div><b>15</b><span>углеводов</span></div><div><b>20</b><span>жиры</span></div><div><b>120</b><span>калорий<br>(на 100г)</span></div></div>
+    <div class="dk" style="margin-top:12px;font-size:14px;font-weight:600">Описание товара очень крутое описание банки молока коровье молоко состав без ГМО и тд</div>
+    <h2>Похожие</h2><div class="row" id="similar"></div>
+    <h2>Рекомендуем</h2><div class="grid" id="recs"></div>
+  </div>
+</section>
+
+<!-- КОРЗИНА -->
+<section class="screen" id="cart">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Корзина</h1></div>
+  <div class="pad">
+    <div class="dk" style="margin-bottom:12px;font-size:15px">📍 <span class="addr">г. Новосибирск, ул. Кирова д.63/2</span></div>
+    <div class="seg" id="storeSeg" style="margin-bottom:12px"></div>
+    <div id="cartList"></div>
+    <div class="dk" style="display:flex;justify-content:space-between;align-items:center" id="cartTotal"></div>
+    <button class="btn big lime" style="margin-top:20px" id="orderBtn">Заказать</button>
+  </div>
+</section>
+
+<!-- МАГАЗИНЫ — список -->
+<section class="screen" id="stores">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Магазины</h1></div>
+  <div style="background:var(--cyan);padding:14px;min-height:80vh">
+    <div style="background:var(--bg);border-radius:20px;padding:16px">
+      <div style="font-size:18px;margin-bottom:12px">15 км &nbsp;•&nbsp; 1999 ₽</div>
+      <div class="sl"><span>Молоко<br>Семенишна</span><span><s>40р/шт</s>40р</span></div>
+      <div class="sl"><span>Молоко<br>Молошкина</span><span><s>55р/шт</s>110р</span></div>
+      <div class="sl"><span>Молоко<br>Семенишна</span><span><s>40р/шт</s>40р</span></div>
+      <div class="sl"><span>Молоко<br>Молошкина</span><span><s>55р/шт</s>110р</span></div>
+      <div style="display:flex;gap:16px;margin-top:40px"><button class="btn dark" style="padding:16px;font-size:18px;border-radius:12px" data-go="map">Свернуть</button><button class="btn lime" style="padding:16px;font-size:18px;border-radius:12px" data-go="cart">Выбрать</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- МАГАЗИНЫ — карта -->
+<section class="screen" id="map">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Магазины</h1></div>
+  <div class="map">
+    <svg viewBox="0 0 400 380" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+      <rect width="400" height="380" fill="#eef1e8"/>
+      <path d="M0 40 L120 20 L180 70 L120 180 L40 260 L0 300 Z" fill="#cfe7bd"/>
+      <path d="M330 200 L400 180 L400 330 L300 340 Z" fill="#cfe7bd"/>
+      <path d="M110 0 C150 80 90 130 170 200 C230 250 210 320 250 380 L300 380 C270 300 290 230 220 170 C170 120 200 60 160 0Z" fill="#aac9ee"/>
+      <path d="M0 140 L220 190 L330 80 L400 60" stroke="#f3d68f" stroke-width="7" fill="none"/>
+      <path d="M0 190 L210 330" stroke="#f0a590" stroke-width="3" fill="none"/>
+      <g stroke="#fff" stroke-width="4"><path d="M220 20 L400 20M240 70 L400 70M260 120 L400 120M300 0 L300 140M350 0 L350 140"/></g>
+      <polygon points="160,240 250,260 215,330" fill="none" stroke="#e0867f" stroke-width="2"/>
+      <path d="M232 250 c-14 -22 -26 -30 0 -48 c26 18 14 26 0 48z" fill="#ec8f8f"/>
+      <line x1="250" y1="100" x2="300" y2="85" stroke="#00bcd0" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="250" cy="100" r="7" fill="#00bcd0"/><circle cx="300" cy="85" r="7" fill="#00bcd0"/>
+    </svg>
+  </div>
+  <div class="sheet">
+    <div style="display:flex;gap:12px;margin-bottom:12px">
+      <div class="dk" style="flex:1;font-size:16px;line-height:1.3;padding:10px 12px">Пятерочка, ул. Люб..<br>Fix Price, ул. Ленин…</div>
+      <button class="sq" style="width:70px;height:auto;background:var(--cream);font-size:26px" data-go="category" data-arg="Фильтры">⚙️</button>
+    </div>
+    <div style="background:var(--bg);border-radius:18px;padding:16px">
+      <div style="font-size:18px;margin-bottom:10px">15 км &nbsp;•&nbsp; 1999 ₽</div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;margin:6px 0"><span>Молоко Семенишна</span><span>1шт</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;margin:6px 0 16px"><span>Молоко Молошкина</span><span>2шт</span></div>
+      <div style="display:flex;gap:16px"><button class="btn dark" style="padding:16px;font-size:18px;border-radius:12px" data-go="stores">Развернуть</button><button class="btn lime" style="padding:16px;font-size:18px;border-radius:12px" data-go="cart">Выбрать</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- МЕНЮ -->
+<section class="screen" id="menu">
+  <div class="hdr"><button class="back" data-back>&lt;</button><h1>Меню</h1><div class="hright"><button class="star">★</button></div></div>
+  <div class="pad">
+    <div class="dk" style="text-align:center;font-size:14px;padding:22px">Блюдо дня/ Реклама/ Рекомендация</div>
+    <h2 style="font-size:18px">Популярные категории</h2>
+    <div class="row"><span class="chip">Мало<br>жира</span><span class="chip">Ужин</span><span class="chip">Веган<br>ский</span><span class="chip">Кето</span><span class="chip">Без<br>сахара</span></div>
+    <h2 style="font-size:18px">Выберите прием пищи</h2>
+    <div class="row"><button class="dk" style="min-width:150px;height:110px;text-align:left;align-self:stretch;display:flex;align-items:flex-end;justify-content:space-between;font-size:12px"><span>Завтрак</span><span>&gt;</span></button><button class="dk" style="min-width:150px;height:110px;display:flex;align-items:flex-end;justify-content:space-between;font-size:12px"><span>Обед</span><span>&gt;</span></button><button class="dk" style="min-width:150px;height:110px;display:flex;align-items:flex-end;font-size:12px">Ужин</button></div>
+    <h2 style="font-size:18px">Выберите метод приготовления</h2>
+    <div class="row"><button class="dk" style="min-width:150px;height:110px;display:flex;align-items:flex-end;justify-content:space-between;font-size:12px"><span>Выпечка</span><span>&gt;</span></button><button class="dk" style="min-width:150px;height:110px;display:flex;align-items:flex-end;font-size:12px">Легкий</button></div>
+    <h2 style="font-size:18px">Рецепты по калорийности</h2>
+    <div class="row"><span class="chip">50-100</span><span class="chip">100-200</span><span class="chip">300-400</span><span class="chip">500-600</span><span class="chip">более<br>700</span></div>
+    <h2 style="font-size:18px">Выберите стиль питания</h2>
+    <div class="row"><span class="chip" style="padding:20px 12px">Вегетари<br>анство</span><span class="chip" style="padding:20px 12px">Высокоб<br>елковый</span><span class="chip" style="padding:20px 12px">Низкоугл<br>еводный</span></div>
+    <h2 style="font-size:18px">Разные кухни</h2>
+    <div class="row"><div class="card" style="width:140px"><div class="img"></div><p class="nm" style="margin-top:10px;min-height:0">Название<br>Описание кухни</p></div><div class="card" style="width:140px"><div class="img"></div><p class="nm" style="margin-top:10px;min-height:0">Название<br>Описание кухни</p></div><div class="card" style="width:140px"><div class="img"></div></div></div>
+    <h2 style="font-size:18px">Из сезонных ингредиентов</h2>
+    <div class="row"><div class="card" style="width:140px"><div class="img"></div><p class="nm" style="margin-top:10px;min-height:0">Название<br>Описание рецепта</p></div><div class="card" style="width:140px"><div class="img"></div><p class="nm" style="margin-top:10px;min-height:0">Название<br>Описание рецепта</p></div><div class="card" style="width:140px"><div class="img"></div></div></div>
+    <button class="dk" style="width:100%;margin-top:16px;font-size:18px;padding:22px" data-go="catalog">Список всех категорий</button>
+  </div>
+</section>
+
+<!-- ИСТОРИЯ -->
+<section class="screen" id="history">
+  <div class="hdr" style="padding-bottom:0"><button class="back" data-back>&lt;</button><h1>История</h1></div>
+  <div class="tabs" id="histTabs"><button class="on" data-htab="orders">Заказы</button><button data-htab="products">Продукты</button></div>
+  <div class="pad" id="histBody"></div>
+</section>
+
+<!-- ПОКУПКА -->
+<section class="screen" id="purchase">
+  <div class="hdr"><button class="back" data-back>&lt;</button><div><h1>Покупка</h1><small style="text-align:center">30 февраля, 16:44</small></div></div>
+  <div class="pad">
+    <div class="dk" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px"><div style="font-size:14px">10 Товаров<br><span style="font-size:12px">Пятерочка, FixPrice</span></div><div style="font-size:26px">1999 ₽</div></div>
+    <div id="purItems" style="border:2px solid var(--dark)"></div>
+    <button class="btn big" style="margin-top:36px" id="repeatBtn">Повторить корзину</button>
+  </div>
+</section>
+
+<nav class="nav" id="nav">
+  <button data-tab="home" title="Главная">🏠</button>
+  <button data-tab="catalog" title="Каталог">🗂️</button>
+  <button data-tab="cart" title="Корзина">🛒</button>
+  <button data-tab="menu" title="Меню">🍳</button>
+  <button data-tab="history" title="История">🕓</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const tg = window.Telegram && window.Telegram.WebApp;
+if (tg) { try { tg.ready(); tg.expand(); tg.setHeaderColor('#254547'); tg.setBackgroundColor('#3b6b6d'); } catch(e){} }
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const fmt = n => Number(n).toLocaleString('ru-RU', {minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2});
+
+const P = [
+  {id:1,n:'Молоко 2,5% Простоквашино',e:'🥛',p:106,o:106,r:4.8,c:312},
+  {id:2,n:'Колбаса Сервелат Фуэ 110г',e:'🥩',p:419.99,o:0,r:4.7,c:24},
+  {id:3,n:'Хлеб Бородинский Пятерочка',e:'🍞',p:500,o:599,r:4.6,c:58},
+  {id:4,n:'Сыр Российский 200г',e:'🧀',p:189,o:0,r:4.5,c:41},
+  {id:5,n:'Яйца С1 10 шт',e:'🥚',p:94,o:0,r:4.7,c:120},
+  {id:6,n:'Помидоры 1 кг',e:'🍅',p:219,o:249,r:4.4,c:33},
+  {id:7,n:'Яблоки Гала 1 кг',e:'🍎',p:129,o:0,r:4.6,c:77},
+  {id:8,n:'Орехи грецкие 150г',e:'🌰',p:179,o:0,r:4.5,c:19}
+];
+const byId = id => P.find(p => p.id == id);
+
+let cart = {3:1, 1:1, 2:1};
+try { const s = JSON.parse(localStorage.getItem('gd_cart')); if (s) cart = s; } catch(e){}
+const saveCart = () => { try { localStorage.setItem('gd_cart', JSON.stringify(cart)); } catch(e){} };
+
+let toastT;
+function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),1600); }
+function addToCart(id){ cart[id]=(cart[id]||0)+1; saveCart(); toast('Добавлено в корзину'); }
+
+// ---------- карточки ----------
+const card = (p, rating) => `
+  <div class="card" data-go="product" data-arg="${p.id}">
+    <div class="img">${p.e}<b></b></div>
+    <div class="pr">${fmt(p.p)}</div>
+    <div class="nm">${p.n}</div>
+    ${rating ? `<div class="rt">• ${p.r} &nbsp;${p.c} отзыва</div>` : ''}
+    <button class="btn" data-add="${p.id}">В корзину</button>
+  </div>`;
+
+// ---------- навигация ----------
+const tabIndex = {home:0, catalog:1, cart:2, menu:3, history:4};
+let stack = ['home'], curProduct = 1, curTab = 'orders', curStore = 1;
+
+const render = {
+  home(){ $('#homeRow').innerHTML = P.slice(0,4).map(p=>card(p)).join(''); $('#homeRow2').innerHTML = P.slice(4).map(p=>card(p)).join(''); },
+  category(){ $('#catGrid').innerHTML = P.concat(P).map(p=>card(p,true)).join(''); },
+  product(){
+    const p = byId(curProduct);
+    $('#prodImg').textContent = p.e; $('#prodPrice').textContent = fmt(p.p) + ' ₽';
+    $('#prodOld').textContent = p.o ? fmt(p.o) + ' ₽' : ''; $('#prodName').textContent = p.n;
+    $('#prodAdd').dataset.add = p.id;
+    $('#similar').innerHTML = P.filter(x=>x.id!==p.id).slice(0,4).map(x=>card(x)).join('');
+    $('#recs').innerHTML = P.filter(x=>x.id!==p.id).slice(0,4).map(x=>card(x,true)).join('');
+  },
+  cart(){
+    const ids = Object.keys(cart).filter(k=>cart[k]>0);
+    const sum = ids.reduce((s,k)=>s+byId(k).p*cart[k],0);
+    const old = ids.reduce((s,k)=>s+(byId(k).o||byId(k).p)*cart[k],0);
+    const f = [0.9, 1, 1.18];
+    const names = ['Лента','Пятерочка','МарияРа'];
+    $('#storeSeg').innerHTML = names.map((n,i)=>`<button class="${i===curStore?'on':''}" data-store="${i}">${n}<br><span style="font-size:15px">${fmt(Math.round(sum*f[i]))} ₽</span></button>`).join('');
+    $('#cartList').innerHTML = ids.length ? ids.map(k=>{ const p=byId(k); return `
+      <div class="item" style="align-items:flex-start;flex-wrap:wrap">
+        <div class="ph">${p.e}</div>
+        <div class="info">${p.n}
+          <div style="display:flex;align-items:center;gap:10px"><span class="qty"><button data-q="-" data-id="${k}">−</button>${cart[k]}<button data-q="+" data-id="${k}">+</button></span><button class="del" data-q="x" data-id="${k}">🗑️</button></div>
+        </div>
+        <div style="text-align:right;font-size:15px">${fmt(p.p*cart[k])} ₽ ${p.o?`<span class="old">${fmt(p.o*cart[k])} ₽</span>`:''}<div style="color:var(--cyan);font-size:12px">(${fmt(p.p)} ₽/шт)</div></div>
+      </div>`; }).join('') : '<div class="dk" style="text-align:center">Корзина пуста</div>';
+    $('#cartTotal').innerHTML = `<div style="font-size:15px">Итого:<br><span style="font-size:12px">Скидка</span></div><div style="text-align:right"><span style="color:var(--lime);font-size:20px">${fmt(sum)} ₽</span> <span class="old">${fmt(old)} ₽</span><div style="color:var(--orange);font-size:15px">−${fmt(old-sum)} ₽</div></div>`;
+  },
+  history(){
+    const milk = '<span style="width:80px;height:84px;background:#fff;border-radius:10px;display:grid;place-items:center;font-size:44px;flex:none">🥛</span>';
+    if (curTab==='orders') {
+      $('#histBody').innerHTML = `<div style="font-size:22px;margin:4px 0 12px">Сентябрь 2026</div>
+        <div class="dk" data-go="purchase" style="cursor:pointer"><div style="font-size:20px;margin-bottom:10px">Покупка 05 октября</div><div style="display:flex;gap:10px;align-items:flex-end">${milk}${milk}${milk}<div style="margin-left:auto;text-align:right;font-size:13px">Сумма<br><span style="font-size:17px">1999 ₽</span></div></div></div>
+        ${[1,2,3].map(()=>'<div class="dk" style="height:150px;margin-top:16px"></div>').join('')}`;
+    } else {
+      $('#histBody').innerHTML = `<div class="grid">${P.slice(0,6).map(p=>card(p)).join('')}</div>`;
+    }
+    $$('#histTabs button').forEach(b=>b.classList.toggle('on', b.dataset.htab===curTab));
+  },
+  purchase(){ $('#purItems').innerHTML = [1,2,3,4,5].map(()=>`<div class="item" style="border-radius:0;margin:0;border-bottom:2px solid var(--bg);align-items:flex-start"><div class="ph">🍞</div><div class="info" style="display:flex;flex-direction:column;justify-content:space-between;height:62px">Хлеб Бородинский<br>Пятерочка<div style="text-align:right;margin-top:auto">500 ₽ <span style="font-size:12px;text-decoration:line-through">599 ₽</span></div></div></div>`).join(''); }
+};
+
+function show(id){
+  $$('.screen').forEach(s=>s.classList.toggle('on', s.id===id));
+  (render[id]||(()=>{}))();
+  const ti = tabIndex[id];
+  $$('#nav button').forEach((b,i)=>b.classList.toggle('act', i===ti));
+  window.scrollTo(0,0);
+}
+function go(id, arg){
+  if (id==='product' && arg) curProduct = +arg;
+  if (id==='category' && arg) setTimeout(()=>{ $('#catTitle').textContent = arg; },0);
+  stack.push(id); show(id);
+  if (id==='category' && arg) $('#catTitle').textContent = arg;
+}
+function back(){ if (stack.length>1) stack.pop(); show(stack[stack.length-1]); }
+
+document.addEventListener('click', e => {
+  const t = e.target;
+  const add = t.closest('[data-add]');
+  if (add){ e.stopPropagation(); addToCart(add.dataset.add); return; }
+  const q = t.closest('[data-q]');
+  if (q){ const id=q.dataset.id; if(q.dataset.q==='+')cart[id]++; else if(q.dataset.q==='-')cart[id]=Math.max(0,cart[id]-1); else cart[id]=0; saveCart(); render.cart(); return; }
+  const st = t.closest('[data-store]'); if (st){ curStore=+st.dataset.store; render.cart(); return; }
+  const ht = t.closest('[data-htab]'); if (ht){ curTab=ht.dataset.htab; render.history(); return; }
+  const tab = t.closest('[data-tab]'); if (tab){ stack=[tab.dataset.tab]; show(tab.dataset.tab); return; }
+  if (t.closest('[data-back]')){ back(); return; }
+  const fav = t.closest('[data-fav]'); if (fav){ fav.textContent = fav.textContent==='☆'?'★':'☆'; return; }
+  if (t.closest('#orderBtn')){ if(!Object.values(cart).some(v=>v>0)){toast('Корзина пуста');return;} if(tg&&tg.sendData){try{tg.sendData(JSON.stringify({order:cart}));}catch(e){}} toast('Заказ оформлен ✔'); cart={}; saveCart(); render.cart(); return; }
+  if (t.closest('#repeatBtn')){ cart={3:1,1:1,2:1,4:1,5:1}; saveCart(); go('cart'); return; }
+  const g = t.closest('[data-go]'); if (g){ go(g.dataset.go, g.dataset.arg); }
+});
+document.addEventListener('keydown', e => { if (e.target.matches('[data-search]') && e.key==='Enter'){ go('category', 'Поиск: ' + (e.target.value||'все товары')); } });
+
+if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user){ const a=$('#avatar'); a.textContent=(tg.initDataUnsafe.user.first_name||'?')[0]; a.style.cssText+=';display:grid;place-items:center;font-size:28px'; }
+show('home');
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
