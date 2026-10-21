@@ -22,3 +22,35 @@ self.addEventListener('fetch', e => {
     }).catch(() => caches.match(e.request))
   );
 });
+
+<script>
+  // Инициализация корзины
+  if (!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify([]));
+  }
+
+  document.querySelectorAll('.plus').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.pc');
+      if (!card) return;
+
+      const product = {
+        id: card.dataset.id || Math.random().toString(36).substr(2, 9),
+        name: card.querySelector('.pn')?.innerText || 'Товар',
+        price: parseInt(card.querySelector('.pp')?.textContent.replace(/[^0-9]/g, '') || 0),
+      };
+
+      let cart = JSON.parse(localStorage.getItem('cart'));
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Визуально показываем, что товар выбран
+      card.classList.add('on');
+
+      // Показываем уведомление
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    });
+  });
+</script>
