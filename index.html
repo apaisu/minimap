@@ -501,11 +501,10 @@ const STORES = [
 /* PNG-картинки магазинов (192×192, прозрачный фон). Чтобы заменить картинку — подставьте свой PNG в формате data:image/png;base64,... или путь к файлу, например 'stores/fix.png' */
 const STORE_PNG = {
   fix: 'https://avatars.mds.yandex.net/i?id=4decabb239d7c8bc33ec6e81aed969ec24cfe04f-5683440-images-thumbs&n=13',
-  mar: 'https://irecommend.ru/sites/default/files/product-images/722993/ksY1bAXQ1t7IXktQYWtYA.png',
+  mar: 'https://avatars.mds.yandex.net/i?id=8daed0165f120c5a55e399a3166613c4ac59a5be-5016868-images-thumbs&n=13',
   pya: 'https://avatars.mds.yandex.net/i?id=5fa191218fe7ede97a5f81056d610714c1b62bd9-12724437-images-thumbs&n=13',
   mag: 'https://avatars.mds.yandex.net/i?id=44c58d4dbda89c57059d593f0cfeae62085690fd-4881188-images-thumbs&n=13',
-  chi: 'https://yandex.ru/images/search?search_client=unknown&text=%D1%87%D0%B8%D0%B6%D0%B8%D0%BA+%D1%84%D0%BE%D1%82%D0%BE+%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD%D0%B0+%D0%BB%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF&pos=1&rpt=simage&img_url=https%3A%2F%2Fwww.depotwpf.ru%2Fupload%2Fiblock%2Fcb5%2Fcb5074b9f86ddf1b5ae063b3e68e7b53.jpg&from=tabbar&lr=65',
-};
+  chi: 'https://avatars.mds.yandex.net/i?id=0523ddf2a7eb33ca8bf13c0aa261d26513b388b6-16921284-images-thumbs&n=13}',
 const SM = Object.fromEntries(STORES.map(s => [s.id, s]));
 const sb = (id, sz = '') => `<img class="sb ${sz}" src="${STORE_PNG[id]}" alt="${SM[id].n}" draggable="false">`;
 
